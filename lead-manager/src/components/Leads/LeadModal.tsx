@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { X, Save, Upload, Trash2 } from 'lucide-react';
-import { Client, Archivo } from '../../types';
+import type { Client, Archivo } from '../../types';
 import { useLeads } from '../../context/LeadContext';
 import { supabase } from '../../lib/supabase';
 

@@ -1,6 +1,7 @@
-import { createContext, useState, useEffect, ReactNode, useContext } from 'react';
+import { createContext, useState, useEffect, useContext } from 'react';
+import type { ReactNode } from 'react';
 import { supabase } from '../lib/supabase';
-import { Client, DashboardStats, ClientStatus } from '../types';
+import type { Client, DashboardStats } from '../types';
 
 interface LeadContextProps {
     clients: Client[];
@@ -22,17 +23,22 @@ export function LeadProvider({ children }: { children: ReactNode }) {
 
     const fetchClients = async () => {
         setLoading(true);
-        const { data, error } = await supabase
-            .from('clients')
-            .select('*')
-            .order('created_at', { ascending: false });
+        try {
+            const { data, error } = await supabase
+                .from('clients')
+                .select('*')
+                .order('created_at', { ascending: false });
 
-        if (error) {
-            setError(error.message);
-        } else if (data) {
-            setClients(data as Client[]);
+            if (error) {
+                setError(error.message);
+            } else if (data) {
+                setClients(data as Client[]);
+            }
+        } catch (err: unknown) {
+            setError(err instanceof Error ? err.message : 'Error al conectar con la base de datos.');
+        } finally {
+            setLoading(false);
         }
-        setLoading(false);
     };
 
     useEffect(() => {

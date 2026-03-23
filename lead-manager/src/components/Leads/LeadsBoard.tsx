@@ -1,6 +1,7 @@
-import { DragDropContext, Droppable, DropResult } from '@hello-pangea/dnd';
+import { DragDropContext, Droppable } from '@hello-pangea/dnd';
+import type { DropResult } from '@hello-pangea/dnd';
 import { useLeads } from '../../context/LeadContext';
-import { ClientStatus } from '../../types';
+import type { ClientStatus } from '../../types';
 import LeadCard from './LeadCard';
 
 const COLUMNS: { id: ClientStatus; title: string, color: string }[] = [

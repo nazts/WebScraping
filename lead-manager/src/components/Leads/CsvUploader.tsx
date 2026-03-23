@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import Papa from 'papaparse';
 import { UploadCloud } from 'lucide-react';
 import { useLeads } from '../../context/LeadContext';
-import { Client } from '../../types';
+import type { Client } from '../../types';
 
 export default function CsvUploader() {
     const fileInput = useRef<HTMLInputElement>(null);

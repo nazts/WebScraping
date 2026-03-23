@@ -1,12 +1,24 @@
+import type { ElementType } from 'react';
 import { useLeads } from '../context/LeadContext';
 import { Users, DollarSign, TrendingUp, Filter, AlertCircle, CheckCircle } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
 
 export default function Dashboard() {
-    const { clients, loading, getDashboardStats } = useLeads();
+    const { clients, loading, error, getDashboardStats } = useLeads();
 
     if (loading) {
         return <div className="flex items-center justify-center h-full text-slate-400">Cargando Dashboard...</div>;
+    }
+
+    if (error) {
+        return (
+            <div className="flex flex-col items-center justify-center h-full text-slate-400 gap-4">
+                <AlertCircle className="w-16 h-16 opacity-50 text-red-400" />
+                <h2 className="text-xl text-red-400">Error de conexión</h2>
+                <p className="text-center max-w-md">No se pudo conectar con la base de datos. Verifica que el archivo <code className="text-indigo-400">.env</code> tenga configuradas las variables <code className="text-indigo-400">VITE_SUPABASE_URL</code> y <code className="text-indigo-400">VITE_SUPABASE_ANON_KEY</code>.</p>
+                <p className="text-xs text-slate-500 mt-2">{error}</p>
+            </div>
+        );
     }
 
     if (clients.length === 0) {
@@ -28,7 +40,7 @@ export default function Dashboard() {
         { name: 'Descartados', count: stats.noPotenciales, fill: '#21213b' },
     ];
 
-    const StatCard = ({ title, value, icon: Icon, color }: { title: string, value: string | number, icon: any, color: string }) => (
+    const StatCard = ({ title, value, icon: Icon }: { title: string, value: string | number, icon: ElementType }) => (
         <div className="bg-[var(--color-brand-400)] rounded-xl p-6 border border-[var(--color-brand-300)] flex items-center shadow-lg transition-transform hover:-translate-y-1 duration-300">
             <div className={`p-4 rounded-lg bg-[var(--color-brand-500)] mr-4 border border-[var(--color-brand-300)]`}>
                 <Icon className="w-6 h-6 text-slate-300" />
@@ -49,14 +61,14 @@ export default function Dashboard() {
 
             {/* KPIs */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <StatCard title="Total Clientes" value={stats.total} icon={Users} color="text-indigo-400" />
-                <StatCard title="Potenciales" value={stats.potenciales} icon={Filter} color="text-purple-400" />
-                <StatCard title="En Proceso" value={stats.enProceso} icon={TrendingUp} color="text-blue-400" />
-                <StatCard title="Cerrados" value={stats.cerrados} icon={CheckCircle} color="text-emerald-400" />
+                <StatCard title="Total Clientes" value={stats.total} icon={Users} />
+                <StatCard title="Potenciales" value={stats.potenciales} icon={Filter} />
+                <StatCard title="En Proceso" value={stats.enProceso} icon={TrendingUp} />
+                <StatCard title="Cerrados" value={stats.cerrados} icon={CheckCircle} />
 
-                <StatCard title="No Potenciales" value={stats.noPotenciales} icon={AlertCircle} color="text-red-400" />
-                <StatCard title="Total Generado" value={`$${stats.totalGenerado.toLocaleString()}`} icon={DollarSign} color="text-green-400" />
-                <StatCard title="Ticket Promedio" value={`$${Math.round(stats.promedio).toLocaleString()}`} icon={DollarSign} color="text-teal-400" />
+                <StatCard title="No Potenciales" value={stats.noPotenciales} icon={AlertCircle} />
+                <StatCard title="Total Generado" value={`$${stats.totalGenerado.toLocaleString()}`} icon={DollarSign} />
+                <StatCard title="Ticket Promedio" value={`$${Math.round(stats.promedio).toLocaleString()}`} icon={DollarSign} />
             </div>
 
             {/* Chart */}

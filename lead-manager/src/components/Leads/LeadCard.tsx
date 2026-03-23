@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { Draggable } from '@hello-pangea/dnd';
-import { Client } from '../../types';
+import type { Client } from '../../types';
 import { Mail, Phone, Calendar, ArrowRight } from 'lucide-react';
 import LeadModal from './LeadModal';
-import { useLeads } from '../../context/LeadContext';
 
 interface Props {
     client: Client;
@@ -12,7 +11,6 @@ interface Props {
 
 export default function LeadCard({ client, index }: Props) {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const { updateClient } = useLeads();
 
     return (
         <>

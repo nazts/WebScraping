@@ -97,6 +97,8 @@ export default function LeadModal({ client, onClose }: Props) {
                         <div><p className="text-xs text-slate-400">Email</p><p>{client.email}</p></div>
                         <div><p className="text-xs text-slate-400">Teléfono</p><p>{client.telefono}</p></div>
                         <div><p className="text-xs text-slate-400">Ciudad</p><p>{client.ciudad}</p></div>
+                        <div><p className="text-xs text-slate-400">País</p><p>{client.pais || 'N/A'}</p></div>
+                        <div><p className="text-xs text-slate-400">Idioma</p><p>{client.idioma || 'es'}</p></div>
                         <div><p className="text-xs text-slate-400">Website</p><p>{client.website || 'N/A'}</p></div>
                     </div>
 

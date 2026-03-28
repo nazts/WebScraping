@@ -13,9 +13,11 @@ const COLUMNS: { id: ClientStatus; title: string, color: string }[] = [
 
 interface Props {
     filterText: string;
+    filterLanguage: string;
+    filterCity: string;
 }
 
-export default function LeadsBoard({ filterText }: Props) {
+export default function LeadsBoard({ filterText, filterLanguage, filterCity }: Props) {
     const { clients, updateClient } = useLeads();
 
     const handleDragEnd = async (result: DropResult) => {
@@ -32,9 +34,22 @@ export default function LeadsBoard({ filterText }: Props) {
     };
 
     const isMatched = (c: any) => {
-        if (!filterText) return true;
-        const s = filterText.toLowerCase();
-        return c.nombre?.toLowerCase().includes(s) || c.negocio?.toLowerCase().includes(s);
+        if (filterText) {
+            const s = filterText.toLowerCase();
+            if (!c.nombre?.toLowerCase().includes(s) && !c.negocio?.toLowerCase().includes(s)) return false;
+        }
+
+        if (filterLanguage && filterLanguage !== 'all') {
+            const leadIdioma = c.idioma?.toLowerCase() ?? '';
+            if (leadIdioma !== filterLanguage.toLowerCase()) return false;
+        }
+
+        if (filterCity) {
+            const cityQuery = filterCity.toLowerCase();
+            if (!c.ciudad?.toLowerCase().includes(cityQuery)) return false;
+        }
+
+        return true;
     };
 
     return (

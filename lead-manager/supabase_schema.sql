@@ -6,6 +6,8 @@ CREATE TABLE clients (
   telefono TEXT,
   email TEXT,
   ciudad TEXT,
+  pais TEXT,
+  idioma TEXT DEFAULT 'es',
   website TEXT,
   estado TEXT NOT NULL DEFAULT 'potencial', -- potencial, proceso, cerrado, descartado
   descripcion TEXT,
@@ -43,3 +45,8 @@ CREATE POLICY "Allow anonymous delete access" ON archivos FOR DELETE USING (true
 INSERT INTO storage.buckets (id, name, public) VALUES ('archivos', 'archivos', true);
 
 CREATE POLICY "Public Access" ON storage.objects FOR ALL USING (bucket_id = 'archivos');
+
+-- Migration: add new columns to an existing clients table
+-- Run these if you already have the table created and need to add the new fields:
+-- ALTER TABLE clients ADD COLUMN IF NOT EXISTS pais TEXT;
+-- ALTER TABLE clients ADD COLUMN IF NOT EXISTS idioma TEXT DEFAULT 'es';

@@ -26,6 +26,8 @@ export default function CsvUploader() {
                         telefono: row.telefono || row.Phone || row.phone || '',
                         email: row.email || row.Email || '',
                         ciudad: row.ciudad || row.City || row.city || '',
+                        pais: row.pais || row.Country || row.country || null,
+                        idioma: row.idioma || row.Language || row.language || 'es',
                         website: row.website || row.Website || null,
                         estado: 'potencial', // default
                         descripcion: null,

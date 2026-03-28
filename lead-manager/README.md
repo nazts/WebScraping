@@ -28,5 +28,11 @@ Una aplicación web completa y moderna para gestionar leads, pensada en la conve
 
 4. **Probar el CSV:**
    Puedes crear un pequeño CSV que tenga columnas como:
-   `nombre, negocio, telefono, email, ciudad`
+   `nombre, negocio, telefono, email, ciudad, pais, idioma`
    e importarlo en la pestaña de Leads. Te sorprenderás cómo aparece y puedes mover a tus clientes de fase.
+
+5. **Filtros de búsqueda:**
+   La pestaña de Leads incluye tres filtros que puedes combinar:
+   - **Nombre / Negocio:** búsqueda de texto libre.
+   - **Idioma:** filtra leads por el idioma registrado. Por defecto muestra sólo leads en **español (`es`)**; selecciona *"Todos los idiomas"* para ver todos.
+   - **Ciudad / Provincia:** filtra leads del mismo país pero por provincia o ciudad específica.

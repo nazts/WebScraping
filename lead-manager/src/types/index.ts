@@ -7,6 +7,8 @@ export interface Client {
     telefono: string;
     email: string;
     ciudad: string;
+    pais?: string | null;
+    idioma?: string | null;
     website?: string | null;
     estado: ClientStatus;
     descripcion?: string | null;
